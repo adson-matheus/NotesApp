@@ -46,35 +46,37 @@ class MainPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextButton(
-                child: const Text(
-                  'Ver as minhas anotações',
-                ),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.teal,
-                  elevation: 10,
-                  textStyle: const TextStyle(fontSize: 20),
-                  padding: const EdgeInsets.all(20.0),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/list_anotacao'),
-              ),
+              const MainButtons(
+                  buttonText: 'Ver as minhas anotações', path: 'list_anotacao'),
               Container(height: 30),
-              TextButton(
-                child: const Text(
-                  'Adicionar nova anotação',
-                ),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.teal,
-                  elevation: 10,
-                  textStyle: const TextStyle(fontSize: 20),
-                  padding: const EdgeInsets.all(20.0),
-                ),
-                onPressed: () => Navigator.pushNamed(context, '/add_anotacao'),
-              ),
+              const MainButtons(
+                  buttonText: 'Adicionar nova anotação', path: 'add_anotacao'),
             ],
           ),
         ),
       );
+}
+
+class MainButtons extends StatelessWidget {
+  final String? buttonText;
+  final String? path;
+
+  const MainButtons({Key? key, this.buttonText, this.path}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      child: Text(
+        '$buttonText',
+      ),
+      style: TextButton.styleFrom(
+        primary: Colors.white,
+        backgroundColor: Colors.teal,
+        elevation: 10,
+        textStyle: const TextStyle(fontSize: 20),
+        padding: const EdgeInsets.all(20.0),
+      ),
+      onPressed: () => Navigator.pushNamed(context, '/$path'),
+    );
+  }
 }
