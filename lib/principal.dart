@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'nova_anotacao.dart';
 import 'ver_anotacoes.dart';
+import 'tipo_anotacao.dart';
 
 class Principal extends StatelessWidget {
   const Principal({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class Principal extends StatelessWidget {
         // Second route
         '/list_anotacao': (context) => const Anotacao(),
         '/add_anotacao': (context) => const AddAnotacao(),
+        '/tipo_anotacao': (context) => const TipoAnotacao(),
       },
       initialRoute: '/',
     );
@@ -50,7 +52,7 @@ class MainPage extends StatelessWidget {
                   buttonText: 'Ver as minhas anotações', path: 'list_anotacao'),
               Container(height: 30),
               const MainButtons(
-                  buttonText: 'Adicionar nova anotação', path: 'add_anotacao'),
+                  buttonText: 'Adicionar nova anotação', path: 'tipo_anotacao'),
             ],
           ),
         ),
