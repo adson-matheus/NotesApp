@@ -22,8 +22,8 @@ class Anotacao extends StatelessWidget {
             ]),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
-        tooltip: 'Increment',
+        onPressed: () => Navigator.pushNamed(context, '/add_anotacao'),
+        tooltip: 'Adicionar Anotação',
         child: const Icon(Icons.add),
       ),
     );
