@@ -15,41 +15,42 @@ class _AddAnotacaoState extends State<AddAnotacao> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adicionar Anotação'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Fields(type: 'Título', maxLines: 2),
-              Container(height: 20),
-              Fields(type: 'Anotação', maxLines: 16),
-              Container(height: 20),
-              ElevatedButton(
-                child: const Text('Enviar'),
-                style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.teal,
-                  elevation: 10,
-                  textStyle: const TextStyle(fontSize: 20),
-                  padding: const EdgeInsets.all(20.0),
-                ),
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_formKey.currentState!.validate()) {
-                    // If the form is valid, display a snackbar. In the real world,
-                    // you'd often call a server or save the information in a database.
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
-                    );
-                  }
-                },
-              ),
-            ],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(
+              Icons.check,
+              semanticLabel: 'Salvar',
+              size: 30,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                // If the form is valid, display a snackbar. In the real world,
+                // you'd often call a server or save the information in a database.
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
           ),
-        ),
+        ],
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(10.0),
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const Fields(type: 'Título', maxLines: 2),
+                Container(height: 20),
+                const Fields(type: 'Anotação', maxLines: 20),
+                Container(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -58,21 +59,20 @@ class _AddAnotacaoState extends State<AddAnotacao> {
 class Fields extends StatelessWidget {
   final String? type;
   final int? maxLines;
-  String? anotacao = '';
+  //String? anotacao = '';
 
-  Fields({Key? key, this.type, this.maxLines, this.anotacao}) : super(key: key);
+  const Fields({Key? key, this.type, this.maxLines}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLines: maxLines,
-      autofocus: true,
       style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
         hintText: '$type',
         border: const OutlineInputBorder(),
       ),
-      onChanged: (value) => anotacao = value,
+      //onChanged: (value) => anotacao = value,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Preencha o(s) campo(s).';
