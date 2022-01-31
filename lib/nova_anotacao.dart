@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'app_controller.dart';
+import 'principal.dart';
+
 class AddAnotacao extends StatefulWidget {
   const AddAnotacao({Key? key}) : super(key: key);
 
@@ -9,10 +12,20 @@ class AddAnotacao extends StatefulWidget {
 
 class _AddAnotacaoState extends State<AddAnotacao> {
   final _formKey = GlobalKey<FormState>();
+  final titulo = TextEditingController();
+  final texto = TextEditingController();
+
+  @override
+  void dispose() {
+    titulo.dispose();
+    texto.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const LateralPage(),
       appBar: AppBar(
         title: const Text('Adicionar Anotação'),
         actions: <Widget>[
@@ -25,11 +38,11 @@ class _AddAnotacaoState extends State<AddAnotacao> {
             ),
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data')),
+                  const SnackBar(content: Text('Adicionado com sucesso!')),
                 );
+                NoteReceiver.instance.addListas(titulo.text, texto.text);
+                Navigator.of(context).pushReplacementNamed('/list_anotacao');
               }
             },
           ),
@@ -43,9 +56,9 @@ class _AddAnotacaoState extends State<AddAnotacao> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const Fields(type: 'Título', maxLines: 2),
+                Fields(type: 'Título', maxLines: 2, controllerType: titulo),
                 Container(height: 20),
-                const Fields(type: 'Anotação', maxLines: 20),
+                Fields(type: 'Anotação', maxLines: 20, controllerType: texto),
                 Container(height: 20),
               ],
             ),
@@ -59,13 +72,15 @@ class _AddAnotacaoState extends State<AddAnotacao> {
 class Fields extends StatelessWidget {
   final String? type;
   final int? maxLines;
-  //String? anotacao = '';
+  final TextEditingController? controllerType;
 
-  const Fields({Key? key, this.type, this.maxLines}) : super(key: key);
+  const Fields({Key? key, this.type, this.maxLines, this.controllerType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controllerType,
       maxLines: maxLines,
       style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
