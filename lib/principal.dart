@@ -11,6 +11,7 @@ class Principal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Navigation Over Screens',
       theme: ThemeData(
         //brightness: Brightness.dark,
@@ -32,41 +33,13 @@ class Principal extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
-  final accountName = 'Adson Matheus';
-  final accountEmail = 'adson.matheus.016@ufrn.edu.br';
-
   const MainPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                currentAccountPicture: ClipOval(
-                    child: Image.asset('assets/images/profilePicture.jfif')),
-                accountName: Text(accountName),
-                accountEmail: Text(accountEmail),
-              ),
-              const ListTileMain(
-                icon: Icon(Icons.home),
-                text: 'Início',
-                path: '/',
-              ),
-              const ListTileMain(
-                icon: Icon(Icons.list_alt),
-                text: 'Ver as minhas anotações',
-                path: '/list_anotacao',
-              ),
-              const ListTileMain(
-                  icon: Icon(Icons.add),
-                  text: 'Adicionar nova anotação',
-                  path: '/tipo_anotacao'),
-            ],
-          ),
-        ),
+        drawer: const LateralPage(),
         appBar: AppBar(
           title: const Text(
             'Início - Note App',
@@ -88,6 +61,43 @@ class MainPage extends StatelessWidget {
           ),
         ),
       );
+}
+
+class LateralPage extends StatelessWidget {
+  final accountName = 'Adson Matheus';
+  final accountEmail = 'adson.matheus.016@ufrn.edu.br';
+
+  const LateralPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            currentAccountPicture: ClipOval(
+                child: Image.asset('assets/images/profilePicture.jfif')),
+            accountName: Text(accountName),
+            accountEmail: Text(accountEmail),
+          ),
+          const ListTileMain(
+            icon: Icon(Icons.home),
+            text: 'Início',
+            path: '/',
+          ),
+          const ListTileMain(
+            icon: Icon(Icons.list_alt),
+            text: 'Ver as minhas anotações',
+            path: '/list_anotacao',
+          ),
+          const ListTileMain(
+              icon: Icon(Icons.add),
+              text: 'Adicionar nova anotação',
+              path: '/tipo_anotacao'),
+        ],
+      ),
+    );
+  }
 }
 
 class MainButtons extends StatelessWidget {
