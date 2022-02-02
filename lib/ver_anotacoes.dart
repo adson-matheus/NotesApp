@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'principal.dart';
 
-class Anotacao extends StatelessWidget {
+class Anotacao extends StatefulWidget {
   const Anotacao({Key? key}) : super(key: key);
 
+  @override
+  _AnotacaoState createState() => _AnotacaoState();
+}
+
+class _AnotacaoState extends State<Anotacao> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +19,13 @@ class Anotacao extends StatelessWidget {
         title: const Text('Ver Anotações'),
         actions: NoteReceiver.instance.modified
             ? <Widget>[
-                IconButton(
-                  icon: const Icon(Icons.search,
-                      semanticLabel: 'Pesquisar',
-                      size: 30,
-                      color: Colors.white),
-                  onPressed: () {},
-                ),
+                AnimatedBuilder(
+                  //ao clicar, muda o icone de pesquisa
+                  animation: ChangeIcon.instance,
+                  builder: (context, child) {
+                    return ChangeIcon.instance.muda();
+                  },
+                )
               ]
             : [],
       ),
