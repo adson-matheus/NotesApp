@@ -12,9 +12,9 @@ class Principal extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Navigation Over Screens',
+      title: 'NotesApp',
       theme: ThemeData(
-        //brightness: Brightness.dark,
+        brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
 
