@@ -57,6 +57,11 @@ class ShowNotes extends StatelessWidget {
         children: List.generate(
       NoteReceiver.instance.titulo.length,
       (index) => ListTile(
+        leading: IconButton(
+          icon: const Icon(Icons.remove_red_eye),
+          onPressed: () => Navigator.pushNamed(context, '/detail_anotacao',
+              arguments: index),
+        ),
         title: Text(NoteReceiver.instance.titulo[index]),
         subtitle: Text(NoteReceiver.instance.texto[index]),
       ),
