@@ -1,3 +1,4 @@
+import 'package:app_anotacoes/edit_anotacao.dart';
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
@@ -16,7 +17,12 @@ class NoteDetail extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () {},
+            onPressed: () {
+              EditDados.instance.dados(NoteReceiver.instance.titulo[index],
+                  NoteReceiver.instance.texto[index]);
+              Navigator.pushReplacementNamed(context, '/edit_anotacao',
+                  arguments: index);
+            },
           ),
           Container(
             width: 10,
