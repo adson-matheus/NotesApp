@@ -4,8 +4,6 @@ class NoteReceiver extends ChangeNotifier {
   static NoteReceiver instance = NoteReceiver();
 
   bool modified = false;
-  String? tit;
-  String? txt;
   List titulo = [];
   List texto = [];
 
@@ -14,6 +12,11 @@ class NoteReceiver extends ChangeNotifier {
     texto.add(txt);
     modified = true;
     notifyListeners();
+  }
+
+  editNote(index, tit, txt) {
+    titulo[index] = tit;
+    texto[index] = txt;
   }
 
   deleteNote(index) {
