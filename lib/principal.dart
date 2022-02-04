@@ -10,7 +10,7 @@ class Principal extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'NotesApp',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        //brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
       onGenerateRoute: generateRoute,
