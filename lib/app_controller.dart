@@ -15,6 +15,14 @@ class NoteReceiver extends ChangeNotifier {
     modified = true;
     notifyListeners();
   }
+
+  deleteNote(index) {
+    titulo.removeAt(index);
+    texto.removeAt(index);
+    if (titulo.isEmpty) {
+      modified = false;
+    }
+  }
 }
 
 class ChangeIcon extends ChangeNotifier {
@@ -35,20 +43,16 @@ class ChangeIcon extends ChangeNotifier {
         },
       );
     } else {
-      return Row(
-        children: [
-          IconButton(
-            icon: const Icon(
-              Icons.cancel,
-              semanticLabel: 'Cancelar',
-              size: 30,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              ChangeIcon.instance.mudaIcone();
-            },
-          ),
-        ],
+      return IconButton(
+        icon: const Icon(
+          Icons.cancel,
+          semanticLabel: 'Cancelar',
+          size: 30,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          ChangeIcon.instance.mudaIcone();
+        },
       );
     }
   }
