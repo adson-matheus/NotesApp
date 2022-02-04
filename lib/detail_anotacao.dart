@@ -30,8 +30,24 @@ class NoteDetail extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
-                NoteReceiver.instance.deleteNote(index);
-                Navigator.pushReplacementNamed(context, '/list_anotacao');
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Excluir?'),
+                          content: const Text('Realmente deseja excluir?'),
+                          actions: [
+                            TextButton(
+                                child: const Text('Não'),
+                                onPressed: () => Navigator.pop(context, 'Não')),
+                            TextButton(
+                                child: const Text('Sim'),
+                                onPressed: () {
+                                  NoteReceiver.instance.deleteNote(index);
+                                  Navigator.pushReplacementNamed(
+                                      context, '/list_anotacao');
+                                }),
+                          ],
+                        ));
               }),
         ],
       ),
