@@ -1,13 +1,9 @@
+import 'package:app_anotacoes/routes.dart';
 import 'package:flutter/material.dart';
-
-import 'nova_anotacao.dart';
-import 'ver_anotacoes.dart';
-import 'tipo_anotacao.dart';
 
 class Principal extends StatelessWidget {
   const Principal({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,16 +13,7 @@ class Principal extends StatelessWidget {
         brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
-
-      // Declare routes
-      routes: {
-        // Main initial route
-        '/': (context) => const MainPage(),
-        // Second route
-        '/list_anotacao': (context) => const Anotacao(),
-        '/add_anotacao': (context) => const AddAnotacao(),
-        '/tipo_anotacao': (context) => const TipoAnotacao(),
-      },
+      onGenerateRoute: generateRoute,
       initialRoute: '/',
     );
   }
