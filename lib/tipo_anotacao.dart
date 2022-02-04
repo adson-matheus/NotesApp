@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'principal.dart';
+
 class TipoAnotacao extends StatelessWidget {
   const TipoAnotacao({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const LateralPage(),
       appBar: AppBar(
         title: const Text(
           'Tipo de Anotação - Note App',

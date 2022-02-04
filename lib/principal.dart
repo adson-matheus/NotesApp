@@ -1,72 +1,32 @@
+import 'package:app_anotacoes/routes.dart';
 import 'package:flutter/material.dart';
-
-import 'nova_anotacao.dart';
-import 'ver_anotacoes.dart';
-import 'tipo_anotacao.dart';
 
 class Principal extends StatelessWidget {
   const Principal({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Navigation Over Screens',
+      debugShowCheckedModeBanner: false,
+      title: 'NotesApp',
       theme: ThemeData(
-        //brightness: Brightness.dark,
+        brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
-
-      // Declare routes
-      routes: {
-        // Main initial route
-        '/': (context) => const MainPage(),
-        // Second route
-        '/list_anotacao': (context) => const Anotacao(),
-        '/add_anotacao': (context) => const AddAnotacao(),
-        '/tipo_anotacao': (context) => const TipoAnotacao(),
-      },
+      onGenerateRoute: generateRoute,
       initialRoute: '/',
     );
   }
 }
 
 class MainPage extends StatelessWidget {
-  final accountName = 'Adson Matheus';
-  final accountEmail = 'adson.matheus.016@ufrn.edu.br';
-
   const MainPage({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                currentAccountPicture: ClipOval(
-                    child: Image.asset('assets/images/profilePicture.jfif')),
-                accountName: Text(accountName),
-                accountEmail: Text(accountEmail),
-              ),
-              const ListTileMain(
-                icon: Icon(Icons.home),
-                text: 'Início',
-                path: '/',
-              ),
-              const ListTileMain(
-                icon: Icon(Icons.list_alt),
-                text: 'Ver as minhas anotações',
-                path: '/list_anotacao',
-              ),
-              const ListTileMain(
-                  icon: Icon(Icons.add),
-                  text: 'Adicionar nova anotação',
-                  path: '/tipo_anotacao'),
-            ],
-          ),
-        ),
+        drawer: const LateralPage(),
         appBar: AppBar(
           title: const Text(
             'Início - Note App',
@@ -88,6 +48,43 @@ class MainPage extends StatelessWidget {
           ),
         ),
       );
+}
+
+class LateralPage extends StatelessWidget {
+  final accountName = 'Adson Matheus';
+  final accountEmail = 'adson.matheus.016@ufrn.edu.br';
+
+  const LateralPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            currentAccountPicture: ClipOval(
+                child: Image.asset('assets/images/profilePicture.jfif')),
+            accountName: Text(accountName),
+            accountEmail: Text(accountEmail),
+          ),
+          const ListTileMain(
+            icon: Icon(Icons.home),
+            text: 'Início',
+            path: '/',
+          ),
+          const ListTileMain(
+            icon: Icon(Icons.list_alt),
+            text: 'Ver as minhas anotações',
+            path: '/list_anotacao',
+          ),
+          const ListTileMain(
+              icon: Icon(Icons.add),
+              text: 'Adicionar nova anotação',
+              path: '/tipo_anotacao'),
+        ],
+      ),
+    );
+  }
 }
 
 class MainButtons extends StatelessWidget {
