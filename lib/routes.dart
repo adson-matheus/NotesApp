@@ -4,6 +4,7 @@ import 'package:app_anotacoes/ver_anotacoes.dart';
 import 'package:flutter/material.dart';
 
 import 'detail_anotacao.dart';
+import 'edit_anotacao.dart';
 import 'nova_anotacao.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,6 +20,9 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/detail_anotacao':
       var index = settings.arguments as int;
       return MaterialPageRoute(builder: (_) => NoteDetail(index));
+    case '/edit_anotacao':
+      var index = settings.arguments as int;
+      return MaterialPageRoute(builder: (_) => EditNote(index: index));
     default:
       return MaterialPageRoute(builder: (_) => const MainPage());
   }
