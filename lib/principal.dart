@@ -123,7 +123,7 @@ class ListTileMain extends StatelessWidget {
     return ListTile(
       leading: icon,
       title: Text('$text'),
-      onTap: () => Navigator.of(context).pushNamed('$path'),
+      onTap: () => Navigator.of(context).popAndPushNamed('$path'),
     );
   }
 }

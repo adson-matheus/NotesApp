@@ -40,7 +40,7 @@ class _AnotacaoState extends State<Anotacao> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, '/tipo_anotacao'),
+        onPressed: () => Navigator.popAndPushNamed(context, '/tipo_anotacao'),
         tooltip: 'Adicionar Anotação',
         child: const Icon(Icons.add),
       ),
@@ -59,11 +59,14 @@ class ShowNotes extends StatelessWidget {
       (index) => ListTile(
         leading: IconButton(
           icon: const Icon(Icons.remove_red_eye),
-          onPressed: () => Navigator.pushNamed(context, '/detail_anotacao',
-              arguments: index),
+          onPressed: () => Navigator.of(context)
+              .popAndPushNamed('/detail_anotacao', arguments: index),
         ),
         title: Text(NoteReceiver.instance.titulo[index]),
-        subtitle: Text(NoteReceiver.instance.texto[index]),
+        subtitle: Text(
+          NoteReceiver.instance.texto[index],
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     ));
   }

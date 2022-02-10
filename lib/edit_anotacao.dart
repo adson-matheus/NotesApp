@@ -39,7 +39,8 @@ class EditNote extends StatelessWidget {
                   const SnackBar(content: Text('Editado com sucesso!')),
                 );
                 NoteReceiver.instance.editNote(index, titulo.text, texto.text);
-                Navigator.of(context).pushReplacementNamed('/list_anotacao');
+                //Navigator.of(context).pushReplacementNamed('/list_anotacao');
+                Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
             },
           ),

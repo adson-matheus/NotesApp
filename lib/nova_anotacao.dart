@@ -25,7 +25,7 @@ class _AddAnotacaoState extends State<AddAnotacao> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const LateralPage(),
+      //drawer: const LateralPage(),
       appBar: AppBar(
         title: const Text('Adicionar Anotação'),
         actions: <Widget>[
@@ -42,7 +42,7 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                   const SnackBar(content: Text('Adicionado com sucesso!')),
                 );
                 NoteReceiver.instance.addListas(titulo.text, texto.text);
-                Navigator.of(context).pushReplacementNamed('/list_anotacao');
+                Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
             },
           ),

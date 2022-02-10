@@ -69,7 +69,7 @@ class NoteTypeButtons extends StatelessWidget {
         textStyle: const TextStyle(fontSize: 20),
         padding: const EdgeInsets.all(20.0),
       ),
-      onPressed: () => Navigator.pushNamed(context, '/$path'),
+      onPressed: () => Navigator.popAndPushNamed(context, '/$path'),
     );
   }
 }
