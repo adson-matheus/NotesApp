@@ -57,20 +57,23 @@ class NoteDetail extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 NoteReceiver.instance.titulo[index],
                 style: const TextStyle(
-                  fontSize: 48.0,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Container(
-                height: 30,
+                height: 24,
               ),
               Text(
                 NoteReceiver.instance.texto[index],
-                //textAlign: TextAlign.left,
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
               )
             ],
           ),
