@@ -56,16 +56,35 @@ class ShowNotes extends StatelessWidget {
     return ListView(
         children: List.generate(
       NoteReceiver.instance.titulo.length,
-      (index) => ListTile(
-        leading: IconButton(
-          icon: const Icon(Icons.remove_red_eye),
-          onPressed: () => Navigator.of(context)
+      (index) => AnimatedBuilder(
+        animation: NoteReceiver.instance,
+        builder: (context, child) => ListTile(
+          onTap: () => Navigator.of(context)
               .popAndPushNamed('/detail_anotacao', arguments: index),
-        ),
-        title: Text(NoteReceiver.instance.titulo[index]),
-        subtitle: Text(
-          NoteReceiver.instance.texto[index],
-          overflow: TextOverflow.ellipsis,
+          title: Text(
+            NoteReceiver.instance.titulo[index],
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontSize: 22,
+                decoration: NoteReceiver.instance.done[index]
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
+          ),
+          subtitle: Text(
+            NoteReceiver.instance.texto[index],
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+                fontSize: 18,
+                decoration: NoteReceiver.instance.done[index]
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
+          ),
+          trailing: IconButton(
+            icon: NoteReceiver.instance.done[index]
+                ? const Icon(Icons.check_box)
+                : const Icon(Icons.check_box_outline_blank_outlined),
+            onPressed: () => NoteReceiver.instance.isDone(index),
+          ),
         ),
       ),
     ));
