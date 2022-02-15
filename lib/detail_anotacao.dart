@@ -59,20 +59,37 @@ class NoteDetail extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                NoteReceiver.instance.titulo[index],
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  NoteReceiver.instance.titulo[index],
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Align(
+                heightFactor: 2,
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  NoteReceiver.instance.dateToString(index),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
               Container(
                 height: 24,
               ),
-              Text(
-                NoteReceiver.instance.texto[index],
-                style: const TextStyle(
-                  fontSize: 24,
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  NoteReceiver.instance.texto[index],
+                  style: const TextStyle(
+                    fontSize: 24,
+                  ),
                 ),
               )
             ],
