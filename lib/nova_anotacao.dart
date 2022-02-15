@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
-import 'principal.dart';
 
 class AddAnotacao extends StatefulWidget {
   const AddAnotacao({Key? key}) : super(key: key);
