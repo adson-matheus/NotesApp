@@ -65,7 +65,7 @@ class ShowNotes extends StatelessWidget {
             NoteReceiver.instance.titulo[index],
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 decoration: NoteReceiver.instance.done[index]
                     ? TextDecoration.lineThrough
                     : TextDecoration.none),
@@ -74,12 +74,13 @@ class ShowNotes extends StatelessWidget {
             NoteReceiver.instance.texto[index],
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 decoration: NoteReceiver.instance.done[index]
                     ? TextDecoration.lineThrough
                     : TextDecoration.none),
           ),
           trailing: IconButton(
+            iconSize: 30,
             icon: NoteReceiver.instance.done[index]
                 ? const Icon(Icons.check_box)
                 : const Icon(Icons.check_box_outline_blank_outlined),
