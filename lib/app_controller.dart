@@ -6,11 +6,18 @@ class NoteReceiver extends ChangeNotifier {
   bool modified = false;
   List titulo = [];
   List texto = [];
+  List done = [];
 
   addListas(tit, txt) {
     titulo.add(tit);
     texto.add(txt);
+    done.add(false);
     modified = true;
+    notifyListeners();
+  }
+
+  isDone(index) {
+    done[index] = !done[index];
     notifyListeners();
   }
 
@@ -22,6 +29,7 @@ class NoteReceiver extends ChangeNotifier {
   deleteNote(index) {
     titulo.removeAt(index);
     texto.removeAt(index);
+    done.removeAt(index);
     if (titulo.isEmpty) {
       modified = false;
     }
