@@ -64,31 +64,31 @@ class NoteDetail extends StatelessWidget {
                 child: Text(
                   NoteReceiver.instance.titulo[index],
                   style: const TextStyle(
-                    fontSize: 36,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
               Align(
                 heightFactor: 2,
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.bottomRight,
                 child: Text(
                   NoteReceiver.instance.dateToString(index),
                   textAlign: TextAlign.start,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                   ),
                 ),
               ),
               Container(
-                height: 24,
+                height: 20,
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.centerLeft,
                 child: Text(
                   NoteReceiver.instance.texto[index],
                   style: const TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                   ),
                 ),
               )
