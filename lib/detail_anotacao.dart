@@ -54,47 +54,120 @@ class NoteDetail extends StatelessWidget {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  NoteReceiver.instance.titulo[index],
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: ListView(
+          children: [
+            Card(
+              color: Colors.white,
+              elevation: 16,
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        NoteReceiver.instance.titulo[index],
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      heightFactor: 2,
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        NoteReceiver.instance.dateToString(index),
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        NoteReceiver.instance.texto[index],
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Align(
-                heightFactor: 2,
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  NoteReceiver.instance.dateToString(index),
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Container(
-                height: 20,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  NoteReceiver.instance.texto[index],
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              )
-            ],
-          ),
+            ),
+            UseCheckBox(index: index),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class UseCheckBox extends StatelessWidget {
+  final int index;
+  const UseCheckBox({Key? key, required this.index}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: NoteReceiver.instance,
+      builder: (context, child) => Card(
+        elevation: 16,
+        margin: const EdgeInsets.only(left: 90, right: 90, top: 60, bottom: 60),
+        child: TextButton(
+            onPressed: () {
+              NoteReceiver.instance.isDone(index);
+              //verifica se esta concluido ou nao, e muda a msg.
+              NoteReceiver.instance.done[index]
+                  ? ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.teal,
+                          content: Text(
+                            'Marcado como concluído!',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    )
+                  : ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          duration: Duration(seconds: 2),
+                          backgroundColor: Colors.red,
+                          content: Text(
+                            'Não concluído!',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    );
+            },
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: NoteReceiver.instance.done[index]
+                    ? <Widget>[
+                        const Text('Não Concluído ',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold)),
+                        const Icon(
+                          Icons.cancel_outlined,
+                          color: Colors.red,
+                          size: 24,
+                        ),
+                      ]
+                    : <Widget>[
+                        const Text('Concluído',
+                            style: TextStyle(
+                              fontSize: 16,
+                            )),
+                        const Icon(
+                          Icons.check_box_rounded,
+                          size: 24,
+                        ),
+                      ])),
       ),
     );
   }
