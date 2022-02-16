@@ -73,6 +73,7 @@ class ShowNotes extends StatelessWidget {
           subtitle: Text(
             NoteReceiver.instance.texto[index],
             overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             style: TextStyle(
                 fontSize: 16,
                 decoration: NoteReceiver.instance.done[index]
@@ -82,8 +83,15 @@ class ShowNotes extends StatelessWidget {
           trailing: IconButton(
             iconSize: 30,
             icon: NoteReceiver.instance.done[index]
-                ? const Icon(Icons.check_box)
-                : const Icon(Icons.check_box_outline_blank_outlined),
+                ? const Icon(
+                    Icons.check_box,
+                    color: Colors.teal,
+                    semanticLabel: 'Marcar como concluído',
+                  )
+                : const Icon(
+                    Icons.check_box_outline_blank_outlined,
+                    semanticLabel: 'Concluído',
+                  ),
             onPressed: () => NoteReceiver.instance.isDone(index),
           ),
         ),
