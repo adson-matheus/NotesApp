@@ -81,19 +81,39 @@ class ShowNotes extends StatelessWidget {
                     : TextDecoration.none),
           ),
           trailing: IconButton(
-            iconSize: 30,
-            icon: NoteReceiver.instance.done[index]
-                ? const Icon(
-                    Icons.check_box,
-                    color: Colors.teal,
-                    semanticLabel: 'Marcar como concluído',
-                  )
-                : const Icon(
-                    Icons.check_box_outline_blank_outlined,
-                    semanticLabel: 'Concluído',
-                  ),
-            onPressed: () => NoteReceiver.instance.isDone(index),
-          ),
+              iconSize: 30,
+              icon: NoteReceiver.instance.done[index]
+                  ? const Icon(
+                      Icons.check_box,
+                      color: Colors.teal,
+                      semanticLabel: 'Marcar como concluído',
+                    )
+                  : const Icon(
+                      Icons.check_box_outline_blank_outlined,
+                      semanticLabel: 'Concluído',
+                    ),
+              onPressed: () {
+                NoteReceiver.instance.isDone(index);
+                NoteReceiver.instance.done[index]
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            duration: Duration(seconds: 2),
+                            backgroundColor: Colors.teal,
+                            content: Text(
+                              'Concluído! "${NoteReceiver.instance.titulo[index]}"',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      )
+                    : ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            duration: Duration(seconds: 2),
+                            backgroundColor: Colors.red,
+                            content: Text(
+                              'Não concluído! "${NoteReceiver.instance.titulo[index]}"',
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      );
+              }),
         ),
       ),
     ));

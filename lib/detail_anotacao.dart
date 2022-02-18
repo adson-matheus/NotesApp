@@ -57,10 +57,11 @@ class NoteDetail extends StatelessWidget {
         child: ListView(
           children: [
             Card(
+              margin: EdgeInsets.all(12),
               color: Colors.white,
               elevation: 16,
               child: Padding(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
                     Align(
@@ -95,12 +96,15 @@ class NoteDetail extends StatelessWidget {
                           fontSize: 20,
                         ),
                       ),
-                    )
+                    ),
+                    Container(
+                      height: 40,
+                    ),
+                    UseCheckBox(index: index),
                   ],
                 ),
               ),
             ),
-            UseCheckBox(index: index),
           ],
         ),
       ),
@@ -117,28 +121,29 @@ class UseCheckBox extends StatelessWidget {
     return AnimatedBuilder(
       animation: NoteReceiver.instance,
       builder: (context, child) => Card(
-        elevation: 16,
-        margin: const EdgeInsets.only(left: 90, right: 90, top: 60, bottom: 60),
+        elevation: 12,
+        margin:
+            const EdgeInsets.only(left: 90, right: 90, top: 100, bottom: 20),
         child: TextButton(
             onPressed: () {
               NoteReceiver.instance.isDone(index);
               //verifica se esta concluido ou nao, e muda a msg.
               NoteReceiver.instance.done[index]
                   ? ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                           duration: Duration(seconds: 2),
                           backgroundColor: Colors.teal,
                           content: Text(
-                            'Marcado como concluído!',
+                            'Concluído! "${NoteReceiver.instance.titulo[index]}"',
                             style: TextStyle(color: Colors.white),
                           )),
                     )
                   : ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                           duration: Duration(seconds: 2),
                           backgroundColor: Colors.red,
                           content: Text(
-                            'Não concluído!',
+                            'Não concluído! "${NoteReceiver.instance.titulo[index]}"',
                             style: TextStyle(color: Colors.white),
                           )),
                     );
