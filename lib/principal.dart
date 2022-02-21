@@ -20,7 +20,9 @@ class Principal extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
-  const MainPage({
+  final _title =
+      Text('NotesApp', style: TextStyle(fontSize: 20, color: Colors.white));
+  MainPage({
     Key? key,
   }) : super(key: key);
 
@@ -28,10 +30,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         drawer: const LateralPage(),
         appBar: AppBar(
-          title: const Text(
-            'Início - Note App',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
+          title: _title,
         ),
         body: SizedBox(
           width: double.infinity,

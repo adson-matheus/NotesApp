@@ -10,7 +10,7 @@ import 'nova_anotacao.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
-      return MaterialPageRoute(builder: (_) => const MainPage());
+      return MaterialPageRoute(builder: (_) => MainPage());
     case '/list_anotacao':
       return MaterialPageRoute(builder: (_) => const Anotacao());
     case '/add_anotacao':
@@ -24,6 +24,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       var index = settings.arguments as int;
       return MaterialPageRoute(builder: (_) => EditNote(index: index));
     default:
-      return MaterialPageRoute(builder: (_) => const MainPage());
+      return MaterialPageRoute(builder: (_) => MainPage());
   }
 }
