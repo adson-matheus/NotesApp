@@ -25,17 +25,22 @@ class ShowSearchField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SearchField(
-          hint: 'Pesquisar...',
-          suggestionsDecoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10))),
-          searchStyle: TextStyle(
-            fontSize: 16,
-            overflow: TextOverflow.ellipsis,
-          ),
-          suggestions: _titulos.map((e) => SearchFieldListItem(e)).toList(),
-          onTap: (index) {
-            findNotePosition(index, _titulos, context);
-          }),
+        suggestions: _titulos.map((e) => SearchFieldListItem(e)).toList(),
+        onTap: (index) {
+          findNotePosition(index, _titulos, context);
+        },
+        searchInputDecoration: InputDecoration(
+            icon: Icon(Icons.search),
+            labelText: 'Pesquisar',
+            contentPadding: EdgeInsets.all(12.0)),
+        suggestionsDecoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        searchStyle: TextStyle(
+          fontSize: 18,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 }
@@ -46,12 +51,7 @@ class SearchNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Procurar Anotação'), actions: [
-        IconButton(
-          icon: Icon(Icons.cancel),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ]),
+      appBar: AppBar(title: const Text('Ver Anotações')),
       body: ListView(
         children: [
           ShowSearchField(),
