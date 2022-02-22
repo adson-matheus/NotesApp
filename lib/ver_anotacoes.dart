@@ -15,20 +15,20 @@ class _AnotacaoState extends State<Anotacao> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const LateralPage(),
-      appBar: AppBar(
-        title: const Text('Ver Anotações'),
-        actions: NoteReceiver.instance.modified
-            ? <Widget>[
-                AnimatedBuilder(
-                  //ao clicar, muda o icone de pesquisa
-                  animation: ChangeIcon.instance,
-                  builder: (context, child) {
-                    return ChangeIcon.instance.muda();
-                  },
-                )
-              ]
-            : [],
-      ),
+      appBar:
+          AppBar(title: const Text('Pesquisar Anotações'), actions: <Widget>[
+        IconButton(
+          icon: const Icon(
+            Icons.search,
+            semanticLabel: 'Pesquisar',
+            size: 30,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/search_anotacao');
+          },
+        ),
+      ]),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
