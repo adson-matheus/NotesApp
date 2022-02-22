@@ -1,4 +1,5 @@
 import 'package:app_anotacoes/principal.dart';
+import 'package:app_anotacoes/search_anotacao.dart';
 import 'package:app_anotacoes/tipo_anotacao.dart';
 import 'package:app_anotacoes/ver_anotacoes.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/edit_anotacao':
       var index = settings.arguments as int;
       return MaterialPageRoute(builder: (_) => EditNote(index: index));
+    case '/search_anotacao':
+      return MaterialPageRoute(builder: (_) => SearchNote());
     default:
       return MaterialPageRoute(builder: (_) => MainPage());
   }
