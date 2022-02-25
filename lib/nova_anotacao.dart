@@ -1,3 +1,4 @@
+import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
@@ -40,6 +41,12 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Adicionado com sucesso!')),
                 );
+                var anotacao = Anotacao(
+                    titulo: titulo.text,
+                    texto: texto.text,
+                    dataCriacao: DateTime.now(),
+                    done: 1);
+                createNote(anotacao);
                 NoteReceiver.instance.addListas(titulo.text, texto.text);
                 Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
