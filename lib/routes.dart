@@ -1,3 +1,4 @@
+import 'package:app_anotacoes/list_anotacoes.dart';
 import 'package:app_anotacoes/principal.dart';
 import 'package:app_anotacoes/search_anotacao.dart';
 import 'package:app_anotacoes/tipo_anotacao.dart';
@@ -13,7 +14,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/':
       return MaterialPageRoute(builder: (_) => MainPage());
     case '/list_anotacao':
-      return MaterialPageRoute(builder: (_) => const Anotacao());
+      return MaterialPageRoute(builder: (_) => const AnotacaoList());
     case '/add_anotacao':
       return MaterialPageRoute(builder: (_) => const AddAnotacao());
     case '/tipo_anotacao':
