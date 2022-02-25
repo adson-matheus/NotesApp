@@ -44,8 +44,8 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                 var anotacao = Anotacao(
                     titulo: titulo.text,
                     texto: texto.text,
-                    dataCriacao: DateTime.now(),
-                    done: 1);
+                    dataCriacao: DateTime.now().toString(),
+                    done: 0);
                 createNote(anotacao);
                 NoteReceiver.instance.addListas(titulo.text, texto.text);
                 Navigator.of(context).popAndPushNamed('/list_anotacao');

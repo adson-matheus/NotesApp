@@ -54,7 +54,7 @@ class ShowNotes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [GetNotes()]);
+    return GetNotes();
   }
 }
 
@@ -66,20 +66,30 @@ class GetNotes extends StatefulWidget {
 }
 
 class _GetNotesState extends State<GetNotes> {
-  final List<Anotacao> notes = [];
-  returnNotes() async {
-    final notes = await getNote();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    returnNotes();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Text('hello world');
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: getNote(),
+      builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+        if (snapshot.hasData) {
+          return Text('${snapshot.data}');
+          //     return ListView(
+          //     children: List.generate(
+          //   notes.length,
+          //   (i) => AnimatedBuilder(
+          //       animation: NoteReceiver.instance,
+          //       builder: (context, child) => ListTile(
+          //             title: Text(notes[i]['titulo']),
+          //             subtitle: Text(notes[i]['texto']),
+          //             onTap: () => Navigator.of(context)
+          //                 .popAndPushNamed('/detail_anotacao', arguments: i),
+          //           )),
+          // ));
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
   }
 }
 

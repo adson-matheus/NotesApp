@@ -6,7 +6,7 @@ class Anotacao {
   int? id;
   final String titulo;
   final String texto;
-  final DateTime dataCriacao;
+  final String dataCriacao;
   final int done;
 
   Anotacao(
@@ -32,7 +32,7 @@ Future<Database> databaseCreate() async {
   final database = openDatabase(
     join(await getDatabasesPath(), 'anotacoes.db'),
     onCreate: (db, version) => db.execute(
-        'CREATE TABLE Anotacao (id INTEGER PRIMARY KEY, texto TEXT, titulo TEXT, dataCriacao DATETIME, done INTEGER)'),
+        'CREATE TABLE Anotacao (id INTEGER PRIMARY KEY, texto TEXT, titulo TEXT, dataCriacao TEXT, done INTEGER)'),
     version: 1,
   );
   return database;
@@ -45,20 +45,12 @@ Future<void> createNote(Anotacao anotacao) async {
       conflictAlgorithm: ConflictAlgorithm.replace);
 }
 
-Future<List<Anotacao>> getNote() async {
+Future<List<Map<String, dynamic>>> getNote() async {
   final db = await databaseCreate();
 
-  final List<Map<String, dynamic>> all = await db.query('Anotacao');
+  final List<Map<String, dynamic>> notes = await db.query('Anotacao');
 
-  return List.generate(all.length, (i) {
-    return Anotacao(
-      id: all[i]['id'],
-      titulo: all[i]['titulo'],
-      texto: all[i]['texto'],
-      dataCriacao: all[i]['dataCriacao'],
-      done: all[i]['done'],
-    );
-  });
+  return notes;
 }
 
 Future<void> updateNote(Anotacao anotacao) async {
