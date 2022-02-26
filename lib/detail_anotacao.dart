@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:app_anotacoes/edit_anotacao.dart';
+import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
@@ -102,7 +101,7 @@ class NoteDetail extends StatelessWidget {
                     Container(
                       height: 40,
                     ),
-                    //UseCheckBox(index: index),
+                    UseCheckBox(note: note),
                   ],
                 ),
               ),
@@ -114,29 +113,42 @@ class NoteDetail extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class UseCheckBox extends StatelessWidget {
-  final int index;
-  const UseCheckBox({Key? key, required this.index}) : super(key: key);
+  var note;
+
+  update(note) async {
+    await Update.instance.updateNote(note);
+  }
+
+  UseCheckBox({Key? key, required this.note}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: NoteReceiver.instance,
+      animation: Update.instance,
       builder: (context, child) => Card(
         elevation: 12,
         margin:
             const EdgeInsets.only(left: 90, right: 90, top: 100, bottom: 20),
         child: TextButton(
             onPressed: () {
-              NoteReceiver.instance.isDone(index);
+              note = Anotacao(
+                  id: note['id'],
+                  titulo: note['titulo'],
+                  texto: note['texto'],
+                  dataCriacao: note['dataCriacao'],
+                  done: isDone(note['done']));
+              update(note);
+
               //verifica se esta concluido ou nao, e muda a msg.
-              NoteReceiver.instance.done[index]
+              note.done == 1
                   ? ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                           duration: Duration(seconds: 2),
                           backgroundColor: Colors.teal,
                           content: Text(
-                            'Concluído! "${NoteReceiver.instance.titulo[index]}"',
+                            'Concluído! "${note.titulo}"',
                             style: TextStyle(color: Colors.white),
                           )),
                     )
@@ -145,14 +157,16 @@ class UseCheckBox extends StatelessWidget {
                           duration: Duration(seconds: 2),
                           backgroundColor: Colors.red,
                           content: Text(
-                            'Não concluído! "${NoteReceiver.instance.titulo[index]}"',
+                            'Não concluído! "${note.titulo}"',
                             style: TextStyle(color: Colors.white),
                           )),
                     );
+              note = note.toMap();
             },
+            //child: Text('finalizado'),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: NoteReceiver.instance.done[index]
+                children: note['done'] == 1
                     ? <Widget>[
                         const Text('Não Concluído ',
                             style: TextStyle(

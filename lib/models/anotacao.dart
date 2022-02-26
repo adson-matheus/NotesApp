@@ -7,7 +7,7 @@ class Anotacao {
   final String titulo;
   final String texto;
   final String dataCriacao;
-  final int done;
+  int done;
 
   Anotacao(
       {this.id,
@@ -18,6 +18,7 @@ class Anotacao {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'titulo': titulo,
       'texto': texto,
       'dataCriacao': dataCriacao,
@@ -45,6 +46,18 @@ Future<void> createNote(Anotacao anotacao) async {
       conflictAlgorithm: ConflictAlgorithm.replace);
 }
 
+class Update extends ChangeNotifier {
+  static Update instance = Update();
+
+  Future<void> updateNote(Anotacao anotacao) async {
+    final db = await databaseCreate();
+
+    db.update('Anotacao', anotacao.toMap(),
+        where: 'id = ?', whereArgs: [anotacao.id]);
+    notifyListeners();
+  }
+}
+
 Future<List<Map<String, dynamic>>> getNote() async {
   final db = await databaseCreate();
 
@@ -53,24 +66,27 @@ Future<List<Map<String, dynamic>>> getNote() async {
   return notes;
 }
 
-Future<List<Map<String, dynamic>>> getNoteById(Anotacao anotacao) async {
+Future<List<Map<String, dynamic>>> getNoteById(int id) async {
   final db = await databaseCreate();
 
   final List<Map<String, dynamic>> note =
-      await db.query('Anotacao', where: 'id = ?', whereArgs: [anotacao.id]);
+      await db.query('Anotacao', where: 'id = ?', whereArgs: [id]);
 
   return note;
-}
-
-Future<void> updateNote(Anotacao anotacao) async {
-  final db = await databaseCreate();
-
-  db.update('Anotacao', anotacao.toMap(),
-      where: 'id = ?', whereArgs: [anotacao.id]);
 }
 
 Future<void> deleteNote(Anotacao anotacao) async {
   final db = await databaseCreate();
 
   db.delete('Anotacao', where: 'id = ?', whereArgs: [anotacao.id]);
+}
+
+int isDone(done) {
+  if (done == 1) {
+    return 0;
+  } else if (done == 0) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
