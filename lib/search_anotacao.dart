@@ -51,7 +51,7 @@ class SearchNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Ver Anotações')),
+      appBar: AppBar(title: const Text('Pesquisar Anotação')),
       body: ListView(
         children: [
           ShowSearchField(),

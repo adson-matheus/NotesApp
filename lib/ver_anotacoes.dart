@@ -15,8 +15,7 @@ class _AnotacaoState extends State<Anotacao> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const LateralPage(),
-      appBar:
-          AppBar(title: const Text('Pesquisar Anotações'), actions: <Widget>[
+      appBar: AppBar(title: const Text('Ver Anotações'), actions: <Widget>[
         IconButton(
           icon: const Icon(
             Icons.search,
