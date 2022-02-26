@@ -53,6 +53,15 @@ Future<List<Map<String, dynamic>>> getNote() async {
   return notes;
 }
 
+Future<List<Map<String, dynamic>>> getNoteById(Anotacao anotacao) async {
+  final db = await databaseCreate();
+
+  final List<Map<String, dynamic>> note =
+      await db.query('Anotacao', where: 'id = ?', whereArgs: [anotacao.id]);
+
+  return note;
+}
+
 Future<void> updateNote(Anotacao anotacao) async {
   final db = await databaseCreate();
 
