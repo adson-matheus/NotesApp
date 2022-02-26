@@ -91,7 +91,9 @@ class _GetNotesState extends State<GetNotes> {
                   //     : TextDecoration.none
                 ),
               ),
-              onTap: () {},
+              onTap: () => Navigator.of(context).popAndPushNamed(
+                  '/detail_anotacao',
+                  arguments: snapshot.data![i]),
             ),
           ));
         } else {

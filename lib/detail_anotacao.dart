@@ -1,27 +1,29 @@
+import 'dart:ffi';
+
 import 'package:app_anotacoes/edit_anotacao.dart';
 import 'package:flutter/material.dart';
 
 import 'app_controller.dart';
 
 class NoteDetail extends StatelessWidget {
-  final int index;
-  // ignore: use_key_in_widget_constructors
-  const NoteDetail(this.index);
+  final Map<String, dynamic> note;
+
+  const NoteDetail(this.note);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
-        title: Text('NotesApp - ' + NoteReceiver.instance.titulo[index]),
+        title: Text('NotesApp - ' + '${note['titulo']}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              EditDados.instance.dados(NoteReceiver.instance.titulo[index],
-                  NoteReceiver.instance.texto[index]);
-              Navigator.pushReplacementNamed(context, '/edit_anotacao',
-                  arguments: index);
+              // EditDados.instance.dados(NoteReceiver.instance.titulo[index],
+              //     NoteReceiver.instance.texto[index]);
+              // Navigator.pushReplacementNamed(context, '/edit_anotacao',
+              //     arguments: index);
             },
           ),
           Container(
@@ -42,7 +44,7 @@ class NoteDetail extends StatelessWidget {
                             TextButton(
                                 child: const Text('Sim'),
                                 onPressed: () {
-                                  NoteReceiver.instance.deleteNote(index);
+                                  //NoteReceiver.instance.deleteNote(index);
                                   Navigator.pushReplacementNamed(
                                       context, '/list_anotacao');
                                 }),
@@ -67,7 +69,7 @@ class NoteDetail extends StatelessWidget {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        NoteReceiver.instance.titulo[index],
+                        note['titulo'],
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -78,7 +80,7 @@ class NoteDetail extends StatelessWidget {
                       heightFactor: 2,
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        NoteReceiver.instance.dateToString(index),
+                        note['dataCriacao'],
                         textAlign: TextAlign.start,
                         style: const TextStyle(
                           fontSize: 16,
@@ -91,7 +93,7 @@ class NoteDetail extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        NoteReceiver.instance.texto[index],
+                        note['texto'],
                         style: const TextStyle(
                           fontSize: 20,
                         ),
@@ -100,7 +102,7 @@ class NoteDetail extends StatelessWidget {
                     Container(
                       height: 40,
                     ),
-                    UseCheckBox(index: index),
+                    //UseCheckBox(index: index),
                   ],
                 ),
               ),

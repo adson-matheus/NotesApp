@@ -20,8 +20,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case '/tipo_anotacao':
       return MaterialPageRoute(builder: (_) => const TipoAnotacao());
     case '/detail_anotacao':
-      var index = settings.arguments as int;
-      return MaterialPageRoute(builder: (_) => NoteDetail(index));
+      var note = settings.arguments as Map<String, dynamic>;
+      return MaterialPageRoute(builder: (_) => NoteDetail(note));
     case '/edit_anotacao':
       var index = settings.arguments as int;
       return MaterialPageRoute(builder: (_) => EditNote(index: index));
