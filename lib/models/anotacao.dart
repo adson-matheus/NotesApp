@@ -75,10 +75,10 @@ Future<List<Map<String, dynamic>>> getNoteById(int id) async {
   return note;
 }
 
-Future<void> deleteNote(Anotacao anotacao) async {
+Future<void> deleteNote(int id) async {
   final db = await databaseCreate();
 
-  db.delete('Anotacao', where: 'id = ?', whereArgs: [anotacao.id]);
+  db.delete('Anotacao', where: 'id = ?', whereArgs: [id]);
 }
 
 int isDone(done) {

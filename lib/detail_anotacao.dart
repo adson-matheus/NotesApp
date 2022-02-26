@@ -35,7 +35,8 @@ class NoteDetail extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                           title: const Text('Excluir?'),
-                          content: const Text('Realmente deseja excluir?'),
+                          content: Text(
+                              'Realmente deseja excluir "${note['titulo']}"?'),
                           actions: [
                             TextButton(
                                 child: const Text('Não'),
@@ -43,9 +44,18 @@ class NoteDetail extends StatelessWidget {
                             TextButton(
                                 child: const Text('Sim'),
                                 onPressed: () {
-                                  //NoteReceiver.instance.deleteNote(index);
-                                  Navigator.pushReplacementNamed(
-                                      context, '/list_anotacao');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: Colors.teal,
+                                        content: Text(
+                                          'Excluído com sucesso! "${note['titulo']}"',
+                                          style: TextStyle(color: Colors.white),
+                                        )),
+                                  );
+                                  deleteNote(note['id']);
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
                                 }),
                           ],
                         ));
