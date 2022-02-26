@@ -72,19 +72,29 @@ class _GetNotesState extends State<GetNotes> {
       future: getNote(),
       builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
-          return Text('${snapshot.data}');
-          //     return ListView(
-          //     children: List.generate(
-          //   notes.length,
-          //   (i) => AnimatedBuilder(
-          //       animation: NoteReceiver.instance,
-          //       builder: (context, child) => ListTile(
-          //             title: Text(notes[i]['titulo']),
-          //             subtitle: Text(notes[i]['texto']),
-          //             onTap: () => Navigator.of(context)
-          //                 .popAndPushNamed('/detail_anotacao', arguments: i),
-          //           )),
-          // ));
+          return ListView(
+              children: List.generate(
+            snapshot.data!.length,
+            (i) => ListTile(
+              title: Text('${snapshot.data![i]['titulo']}',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 20,
+                  )),
+              subtitle: Text(
+                '${snapshot.data![i]['texto']}',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 16,
+                  // decoration: snapshot.data![i]['done']
+                  //     ? TextDecoration.lineThrough
+                  //     : TextDecoration.none
+                ),
+              ),
+              onTap: () {},
+            ),
+          ));
         } else {
           return CircularProgressIndicator();
         }
