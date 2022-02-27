@@ -32,11 +32,14 @@ class _AnotacaoListState extends State<AnotacaoList> {
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: NoteReceiver.instance.modified
-              ? const ShowNotes()
-              : const ZeroNotesSaved(),
+        child: AnimatedBuilder(
+          animation: CrudNotes.instance,
+          builder: (context, child) => Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: CrudNotes.instance.created
+                ? GetNotes()
+                : const ZeroNotesSaved(),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -45,15 +48,6 @@ class _AnotacaoListState extends State<AnotacaoList> {
         child: const Icon(Icons.add),
       ),
     );
-  }
-}
-
-class ShowNotes extends StatelessWidget {
-  const ShowNotes({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GetNotes();
   }
 }
 
@@ -68,7 +62,7 @@ class _GetNotesState extends State<GetNotes> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: getNote(),
+      future: CrudNotes.instance.getNote(),
       builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
           return ListView(
