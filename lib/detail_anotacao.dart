@@ -19,10 +19,9 @@ class NoteDetail extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              // EditDados.instance.dados(NoteReceiver.instance.titulo[index],
-              //     NoteReceiver.instance.texto[index]);
-              // Navigator.pushReplacementNamed(context, '/edit_anotacao',
-              //     arguments: index);
+              EditDados.instance.dados(note['titulo'], note['texto']);
+              Navigator.pushReplacementNamed(context, '/edit_anotacao',
+                  arguments: note);
             },
           ),
           Container(

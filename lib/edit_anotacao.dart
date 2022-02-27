@@ -1,3 +1,4 @@
+import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:app_anotacoes/principal.dart';
 import 'package:flutter/material.dart';
 
@@ -5,19 +6,12 @@ import 'app_controller.dart';
 import 'nova_anotacao.dart';
 
 class EditNote extends StatelessWidget {
+  final Map<String, dynamic> note;
   final _formKey = GlobalKey<FormState>();
   final titulo = TextEditingController(text: EditDados.instance.titulo);
   final texto = TextEditingController(text: EditDados.instance.texto);
-  final int index;
 
-  EditNote({
-    Key? key,
-    required this.index,
-  }) : super(key: key);
-/*   void dispose() {
-    titulo.dispose();
-    texto.dispose();
-  } */
+  EditNote({Key? key, required this.note}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +32,14 @@ class EditNote extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Editado com sucesso!')),
                 );
-                NoteReceiver.instance.editNote(index, titulo.text, texto.text);
+                var n = Note(
+                    id: note['id'],
+                    titulo: titulo.text,
+                    texto: texto.text,
+                    dataCriacao: note['dataCriacao'],
+                    done: note['done']);
+                CrudNotes.instance.updateNote(n);
+                //NoteReceiver.instance.editNote(id, titulo.text, texto.text);
                 //Navigator.of(context).pushReplacementNamed('/list_anotacao');
                 Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
