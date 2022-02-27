@@ -37,8 +37,7 @@ class NoteReceiver extends ChangeNotifier {
     }
   }
 
-  String dateToString(index) {
-    DateTime d = datetime[index];
+  String dateToString(DateTime d) {
     String dia = '';
     String mes = '';
     String hora = '';
