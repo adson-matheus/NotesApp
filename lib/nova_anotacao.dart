@@ -41,13 +41,13 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Adicionado com sucesso!')),
                 );
-                var anotacao = Anotacao(
+                var anotacao = Note(
                     titulo: titulo.text,
                     texto: texto.text,
                     dataCriacao: DateTime.now().toString(),
                     done: 0);
-                createNote(anotacao);
-                NoteReceiver.instance.addListas(titulo.text, texto.text);
+                CrudNotes.instance.createNote(anotacao);
+                //NoteReceiver.instance.addListas(titulo.text, texto.text);
                 Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
             },

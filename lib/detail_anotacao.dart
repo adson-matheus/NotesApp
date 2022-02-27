@@ -53,7 +53,7 @@ class NoteDetail extends StatelessWidget {
                                           style: TextStyle(color: Colors.white),
                                         )),
                                   );
-                                  deleteNote(note['id']);
+                                  CrudNotes.instance.deleteNote(note['id']);
                                   Navigator.pop(context);
                                   Navigator.pop(context);
                                 }),
@@ -128,7 +128,7 @@ class UseCheckBox extends StatelessWidget {
   var note;
 
   update(note) async {
-    await Update.instance.updateNote(note);
+    await CrudNotes.instance.updateNote(note);
   }
 
   UseCheckBox({Key? key, required this.note}) : super(key: key);
@@ -136,19 +136,19 @@ class UseCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: Update.instance,
+      animation: CrudNotes.instance,
       builder: (context, child) => Card(
         elevation: 12,
         margin:
             const EdgeInsets.only(left: 90, right: 90, top: 100, bottom: 20),
         child: TextButton(
             onPressed: () {
-              note = Anotacao(
+              note = Note(
                   id: note['id'],
                   titulo: note['titulo'],
                   texto: note['texto'],
                   dataCriacao: note['dataCriacao'],
-                  done: isDone(note['done']));
+                  done: CrudNotes.instance.isDone(note['done']));
               update(note);
 
               //verifica se esta concluido ou nao, e muda a msg.
