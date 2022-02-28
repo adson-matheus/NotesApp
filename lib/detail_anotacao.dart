@@ -173,7 +173,7 @@ class UseCheckBox extends StatelessWidget {
             //child: Text('finalizado'),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: note['done'] == 1
+                children: note['done'] == 0
                     ? <Widget>[
                         const Text('Não Concluído ',
                             style: TextStyle(
