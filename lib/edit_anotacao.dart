@@ -29,7 +29,13 @@ class EditNote extends StatelessWidget {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Editado com sucesso!')),
+                  SnackBar(
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.teal,
+                      content: Text(
+                        'Editado com sucesso!',
+                        style: TextStyle(color: Colors.white),
+                      )),
                 );
                 var n = Note(
                     id: note['id'],
