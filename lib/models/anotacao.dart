@@ -29,7 +29,7 @@ class Note {
 
 class CrudNotes extends ChangeNotifier {
   static CrudNotes instance = CrudNotes();
-  bool created = false;
+  bool created = true;
 
   Future<Database> databaseCreate() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +50,7 @@ class CrudNotes extends ChangeNotifier {
         conflictAlgorithm: ConflictAlgorithm.replace);
 
     instance.created = true;
+    print(db.path);
   }
 
   Future<void> updateNote(Note note) async {
@@ -63,6 +64,10 @@ class CrudNotes extends ChangeNotifier {
     final db = await databaseCreate();
 
     final List<Map<String, dynamic>> notes = await db.query('Note');
+
+    if (notes.length == 0) {
+      instance.created = false;
+    }
 
     return notes;
   }
