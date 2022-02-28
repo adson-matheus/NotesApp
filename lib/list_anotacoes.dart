@@ -129,7 +129,13 @@ class _GetNotesState extends State<GetNotes> {
             )),
           );
         } else {
-          return CircularProgressIndicator();
+          return Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              semanticsLabel: 'Carregando...',
+            ),
+          );
         }
       },
     );

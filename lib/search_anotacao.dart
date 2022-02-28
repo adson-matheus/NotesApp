@@ -84,7 +84,7 @@ class _SearchNoteState extends State<SearchNote> {
                   },
                   searchInputDecoration: InputDecoration(
                       icon: Icon(Icons.search),
-                      labelText: 'Pesquisar',
+                      hintText: 'Pesquisar',
                       contentPadding: EdgeInsets.all(12.0)),
                   suggestionsDecoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -93,10 +93,18 @@ class _SearchNoteState extends State<SearchNote> {
                     fontSize: 18,
                     overflow: TextOverflow.ellipsis,
                   ),
+                  itemHeight: 50.0,
+                  maxSuggestionsInViewPort: 8,
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  semanticsLabel: 'Carregando...',
+                ),
+              );
             }
           },
         ),
