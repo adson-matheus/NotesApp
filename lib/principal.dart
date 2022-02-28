@@ -10,7 +10,7 @@ class Principal extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'NotesApp',
       theme: ThemeData(
-        //brightness: Brightness.dark,
+        brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
       onGenerateRoute: generateRoute,
@@ -42,7 +42,7 @@ class MainPage extends StatelessWidget {
                   buttonText: 'Ver as minhas anotações', path: 'list_anotacao'),
               Container(height: 30),
               const MainButtons(
-                  buttonText: 'Adicionar nova anotação', path: 'tipo_anotacao'),
+                  buttonText: 'Adicionar nova anotação', path: 'add_anotacao'),
             ],
           ),
         ),
