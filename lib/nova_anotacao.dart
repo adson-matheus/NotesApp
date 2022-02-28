@@ -45,7 +45,7 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                     titulo: titulo.text,
                     texto: texto.text,
                     dataCriacao:
-                        NoteReceiver.instance.dateToString(DateTime.now()),
+                        AppController.instance.dateToString(DateTime.now()),
                     done: 0);
                 CrudNotes.instance.createNote(anotacao);
                 //NoteReceiver.instance.addListas(titulo.text, texto.text);
