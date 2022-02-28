@@ -2,7 +2,6 @@ import 'package:app_anotacoes/list_anotacoes.dart';
 import 'package:app_anotacoes/principal.dart';
 import 'package:app_anotacoes/search_anotacao.dart';
 import 'package:app_anotacoes/tipo_anotacao.dart';
-import 'package:app_anotacoes/ver_anotacoes.dart';
 import 'package:flutter/material.dart';
 
 import 'detail_anotacao.dart';
