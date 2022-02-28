@@ -2,8 +2,6 @@ import 'package:app_anotacoes/edit_anotacao.dart';
 import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:flutter/material.dart';
 
-import 'app_controller.dart';
-
 class NoteDetail extends StatelessWidget {
   final Map<String, dynamic> note;
 

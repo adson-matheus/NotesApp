@@ -2,7 +2,6 @@ import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:app_anotacoes/principal.dart';
 import 'package:flutter/material.dart';
 
-import 'app_controller.dart';
 import 'nova_anotacao.dart';
 
 class EditNote extends StatelessWidget {
@@ -39,8 +38,6 @@ class EditNote extends StatelessWidget {
                     dataCriacao: note['dataCriacao'],
                     done: note['done']);
                 CrudNotes.instance.updateNote(n);
-                //NoteReceiver.instance.editNote(id, titulo.text, texto.text);
-                //Navigator.of(context).pushReplacementNamed('/list_anotacao');
                 Navigator.of(context).popAndPushNamed('/list_anotacao');
               }
             },
