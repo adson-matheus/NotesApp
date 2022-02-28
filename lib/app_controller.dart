@@ -1,41 +1,5 @@
-import 'package:flutter/material.dart';
-
-class NoteReceiver extends ChangeNotifier {
-  static NoteReceiver instance = NoteReceiver();
-
-  bool modified = false;
-  List titulo = [];
-  List texto = [];
-  List done = [];
-  List datetime = [];
-
-  addListas(tit, txt) {
-    titulo.insert(0, tit);
-    texto.insert(0, txt);
-    done.insert(0, false);
-    datetime.add(DateTime.now());
-    modified = true;
-    notifyListeners();
-  }
-
-  isDone(index) {
-    done[index] = !done[index];
-    notifyListeners();
-  }
-
-  editNote(index, tit, txt) {
-    titulo[index] = tit;
-    texto[index] = txt;
-  }
-
-  deleteNote(index) {
-    titulo.removeAt(index);
-    texto.removeAt(index);
-    done.removeAt(index);
-    if (titulo.isEmpty) {
-      modified = false;
-    }
-  }
+class AppController {
+  static AppController instance = AppController();
 
   String dateToString(DateTime d) {
     String dia = '';
@@ -108,6 +72,9 @@ class NoteReceiver extends ChangeNotifier {
     }
 
     switch (d.hour) {
+      case 0:
+        hora = "00";
+        break;
       case 1:
         hora = "01";
         break;
@@ -140,6 +107,9 @@ class NoteReceiver extends ChangeNotifier {
     }
 
     switch (d.minute) {
+      case 0:
+        minuto = "00";
+        break;
       case 1:
         minuto = "01";
         break;
