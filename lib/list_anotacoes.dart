@@ -1,4 +1,3 @@
-import 'package:app_anotacoes/app_controller.dart';
 import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class _AnotacaoListState extends State<AnotacaoList> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/search_anotacao');
+            Navigator.popAndPushNamed(context, '/search_anotacao');
           },
         ),
       ]),
