@@ -89,6 +89,7 @@ class Fields extends StatelessWidget {
     return TextFormField(
       controller: controllerType,
       maxLines: maxLines,
+      textCapitalization: TextCapitalization.sentences,
       style: const TextStyle(fontSize: 16),
       decoration: InputDecoration(
         hintText: '$type',
