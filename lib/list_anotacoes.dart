@@ -12,11 +12,33 @@ class AnotacaoList extends StatefulWidget {
 }
 
 class _AnotacaoListState extends State<AnotacaoList> {
+  final _title = Text('NotesApp - Anotações',
+      style: TextStyle(fontSize: 20, color: Colors.white));
+
+  List<BottomNavigationBarItem> _items = [
+    BottomNavigationBarItem(
+        icon: Icon(Icons.list_alt),
+        label: 'Listar Anotações',
+        tooltip: 'Listar Anotações'),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.note_add),
+        label: 'Nova Anotação',
+        tooltip: 'Nova Anotação'),
+  ];
+
+  void itemTapped(int index) {
+    if (index == 0) {
+      Navigator.popAndPushNamed(context, '/list_anotacao');
+    } else {
+      Navigator.pushNamed(context, '/add_anotacao');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const LateralPage(),
-      appBar: AppBar(title: const Text('Ver Anotações'), actions: <Widget>[
+      appBar: AppBar(title: _title, actions: <Widget>[
         IconButton(
           icon: const Icon(
             Icons.search,
@@ -42,10 +64,9 @@ class _AnotacaoListState extends State<AnotacaoList> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.popAndPushNamed(context, '/tipo_anotacao'),
-        tooltip: 'Adicionar Anotação',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _items,
+        onTap: itemTapped,
       ),
     );
   }
@@ -87,6 +108,8 @@ class _GetNotesState extends State<GetNotes> {
                     //     : TextDecoration.none
                   ),
                 ),
+                onTap: () => Navigator.of(context).pushNamed('/detail_anotacao',
+                    arguments: snapshot.data![i]),
                 trailing: IconButton(
                     iconSize: 30,
                     icon: snapshot.data![i]['done'] == 0
@@ -122,9 +145,6 @@ class _GetNotesState extends State<GetNotes> {
                             );
                       AppController.instance.checkBox(snapshot.data![i]);
                     }),
-                onTap: () => Navigator.of(context).popAndPushNamed(
-                    '/detail_anotacao',
-                    arguments: snapshot.data![i]),
               ),
             )),
           );
