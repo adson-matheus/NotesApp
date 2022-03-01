@@ -12,14 +12,17 @@ class NoteDetail extends StatelessWidget {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.popAndPushNamed(context, '/'),
+        ),
         title: Text('NotesApp - ' + '${note['titulo']}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
               EditDados.instance.dados(note['titulo'], note['texto']);
-              Navigator.pushReplacementNamed(context, '/edit_anotacao',
-                  arguments: note);
+              Navigator.pushNamed(context, '/edit_anotacao', arguments: note);
             },
           ),
           Container(
