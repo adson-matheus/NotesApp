@@ -1,3 +1,5 @@
+import 'package:app_anotacoes/models/anotacao.dart';
+
 class AppController {
   static AppController instance = AppController();
 
@@ -142,5 +144,15 @@ class AppController {
     }
 
     return '$dia/$mes/${d.year} - $hora:$minuto';
+  }
+
+  checkBox(note) async {
+    note = Note(
+        id: note['id'],
+        titulo: note['titulo'],
+        texto: note['texto'],
+        dataCriacao: note['dataCriacao'],
+        done: CrudNotes.instance.isDone(note['done']));
+    await CrudNotes.instance.updateNote(note);
   }
 }

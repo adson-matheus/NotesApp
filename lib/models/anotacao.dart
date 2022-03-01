@@ -63,7 +63,8 @@ class CrudNotes extends ChangeNotifier {
   Future<List<Map<String, dynamic>>> getNote() async {
     final db = await databaseCreate();
 
-    final List<Map<String, dynamic>> notes = await db.query('Note');
+    final List<Map<String, dynamic>> notes =
+        await db.query('Note', orderBy: 'id DESC');
 
     if (notes.length == 0) {
       instance.created = false;

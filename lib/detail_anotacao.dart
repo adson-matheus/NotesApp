@@ -12,14 +12,17 @@ class NoteDetail extends StatelessWidget {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.popAndPushNamed(context, '/'),
+        ),
         title: Text('NotesApp - ' + '${note['titulo']}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
               EditDados.instance.dados(note['titulo'], note['texto']);
-              Navigator.pushReplacementNamed(context, '/edit_anotacao',
-                  arguments: note);
+              Navigator.pushNamed(context, '/edit_anotacao', arguments: note);
             },
           ),
           Container(
@@ -66,7 +69,6 @@ class NoteDetail extends StatelessWidget {
           children: [
             Card(
               margin: EdgeInsets.all(12),
-              color: Colors.white,
               elevation: 16,
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -135,9 +137,18 @@ class UseCheckBox extends StatelessWidget {
     return AnimatedBuilder(
       animation: CrudNotes.instance,
       builder: (context, child) => Card(
-        elevation: 12,
+        elevation: 16,
+        shape: note['done'] == 1
+            ? RoundedRectangleBorder(
+                side: BorderSide(width: 1, color: Colors.teal),
+                borderRadius: BorderRadius.circular(5),
+              )
+            : RoundedRectangleBorder(
+                side: BorderSide(width: 1, color: Colors.red),
+                borderRadius: BorderRadius.circular(5),
+              ),
         margin:
-            const EdgeInsets.only(left: 90, right: 90, top: 100, bottom: 20),
+            const EdgeInsets.only(left: 120, right: 120, top: 100, bottom: 20),
         child: TextButton(
             onPressed: () {
               note = Note(
@@ -170,16 +181,10 @@ class UseCheckBox extends StatelessWidget {
                     );
               note = note.toMap();
             },
-            //child: Text('finalizado'),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: note['done'] == 1
+                children: note['done'] == 0
                     ? <Widget>[
-                        const Text('Não Concluído ',
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold)),
                         const Icon(
                           Icons.cancel_outlined,
                           color: Colors.red,
@@ -187,10 +192,6 @@ class UseCheckBox extends StatelessWidget {
                         ),
                       ]
                     : <Widget>[
-                        const Text('Concluído',
-                            style: TextStyle(
-                              fontSize: 16,
-                            )),
                         const Icon(
                           Icons.check_box_rounded,
                           size: 24,

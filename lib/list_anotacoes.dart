@@ -1,3 +1,4 @@
+import 'package:app_anotacoes/app_controller.dart';
 import 'package:app_anotacoes/models/anotacao.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +12,33 @@ class AnotacaoList extends StatefulWidget {
 }
 
 class _AnotacaoListState extends State<AnotacaoList> {
+  final _title = Text('NotesApp - Anotações',
+      style: TextStyle(fontSize: 20, color: Colors.white));
+
+  List<BottomNavigationBarItem> _items = [
+    BottomNavigationBarItem(
+        icon: Icon(Icons.list_alt),
+        label: 'Listar Anotações',
+        tooltip: 'Listar Anotações'),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.note_add),
+        label: 'Nova Anotação',
+        tooltip: 'Nova Anotação'),
+  ];
+
+  void itemTapped(int index) {
+    if (index == 0) {
+      Navigator.popAndPushNamed(context, '/list_anotacao');
+    } else {
+      Navigator.pushNamed(context, '/add_anotacao');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const LateralPage(),
-      appBar: AppBar(title: const Text('Ver Anotações'), actions: <Widget>[
+      appBar: AppBar(title: _title, actions: <Widget>[
         IconButton(
           icon: const Icon(
             Icons.search,
@@ -41,10 +64,9 @@ class _AnotacaoListState extends State<AnotacaoList> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.popAndPushNamed(context, '/tipo_anotacao'),
-        tooltip: 'Adicionar Anotação',
-        child: const Icon(Icons.add),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _items,
+        onTap: itemTapped,
       ),
     );
   }
@@ -64,33 +86,76 @@ class _GetNotesState extends State<GetNotes> {
       future: CrudNotes.instance.getNote(),
       builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (snapshot.hasData) {
-          return ListView(
-              children: List.generate(
-            snapshot.data!.length,
-            (i) => ListTile(
-              title: Text('${snapshot.data![i]['titulo']}',
+          return AnimatedBuilder(
+            animation: CrudNotes.instance,
+            builder: (context, child) => ListView(
+                children: List.generate(
+              snapshot.data!.length,
+              (i) => ListTile(
+                title: Text('${snapshot.data![i]['titulo']}',
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 20,
+                    )),
+                subtitle: Text(
+                  '${snapshot.data![i]['texto']}',
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style: TextStyle(
-                    fontSize: 20,
-                  )),
-              subtitle: Text(
-                '${snapshot.data![i]['texto']}',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: TextStyle(
-                  fontSize: 16,
-                  // decoration: snapshot.data![i]['done']
-                  //     ? TextDecoration.lineThrough
-                  //     : TextDecoration.none
+                    fontSize: 16,
+                    // decoration: snapshot.data![i]['done']
+                    //     ? TextDecoration.lineThrough
+                    //     : TextDecoration.none
+                  ),
                 ),
+                onTap: () => Navigator.of(context).pushNamed('/detail_anotacao',
+                    arguments: snapshot.data![i]),
+                trailing: IconButton(
+                    iconSize: 30,
+                    icon: snapshot.data![i]['done'] == 0
+                        ? Icon(
+                            Icons.check_box_outline_blank,
+                            color: Colors.teal,
+                            semanticLabel: 'Marcar como Concluído',
+                          )
+                        : Icon(
+                            Icons.check_box,
+                            color: Colors.teal,
+                            semanticLabel: 'Concluído',
+                          ),
+                    onPressed: () {
+                      snapshot.data![i]['done'] == 0
+                          ? ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.teal,
+                                  content: Text(
+                                    'Concluído! "${snapshot.data![i]['titulo']}"',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            )
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.red,
+                                  content: Text(
+                                    'Não concluído! "${snapshot.data![i]['titulo']}"',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            );
+                      AppController.instance.checkBox(snapshot.data![i]);
+                    }),
               ),
-              onTap: () => Navigator.of(context).popAndPushNamed(
-                  '/detail_anotacao',
-                  arguments: snapshot.data![i]),
-            ),
-          ));
+            )),
+          );
         } else {
-          return CircularProgressIndicator();
+          return Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              semanticsLabel: 'Carregando...',
+            ),
+          );
         }
       },
     );

@@ -1,5 +1,4 @@
 import 'package:app_anotacoes/models/anotacao.dart';
-import 'package:app_anotacoes/principal.dart';
 import 'package:flutter/material.dart';
 
 import 'nova_anotacao.dart';
@@ -15,7 +14,7 @@ class EditNote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const LateralPage(),
+      //drawer: const LateralPage(),
       appBar: AppBar(
         title: const Text('Editar Anotação'),
         actions: <Widget>[
@@ -29,7 +28,13 @@ class EditNote extends StatelessWidget {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Editado com sucesso!')),
+                  SnackBar(
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.teal,
+                      content: Text(
+                        'Editado com sucesso!',
+                        style: TextStyle(color: Colors.white),
+                      )),
                 );
                 var n = Note(
                     id: note['id'],

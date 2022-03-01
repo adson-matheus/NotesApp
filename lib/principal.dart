@@ -1,6 +1,8 @@
 import 'package:app_anotacoes/routes.dart';
 import 'package:flutter/material.dart';
 
+import 'list_anotacoes.dart';
+
 class Principal extends StatelessWidget {
   const Principal({Key? key}) : super(key: key);
 
@@ -10,7 +12,7 @@ class Principal extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'NotesApp',
       theme: ThemeData(
-        //brightness: Brightness.dark,
+        brightness: Brightness.dark,
         primarySwatch: Colors.teal,
       ),
       onGenerateRoute: generateRoute,
@@ -20,33 +22,12 @@ class Principal extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
-  final _title =
-      Text('NotesApp', style: TextStyle(fontSize: 20, color: Colors.white));
-  MainPage({
-    Key? key,
-  }) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        drawer: const LateralPage(),
-        appBar: AppBar(
-          title: _title,
-        ),
-        body: SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const MainButtons(
-                  buttonText: 'Ver as minhas anotações', path: 'list_anotacao'),
-              Container(height: 30),
-              const MainButtons(
-                  buttonText: 'Adicionar nova anotação', path: 'tipo_anotacao'),
-            ],
-          ),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return AnotacaoList();
+  }
 }
 
 class LateralPage extends StatelessWidget {
@@ -67,11 +48,6 @@ class LateralPage extends StatelessWidget {
             accountEmail: Text(accountEmail),
           ),
           const ListTileMain(
-            icon: Icon(Icons.home),
-            text: 'Início',
-            path: '/',
-          ),
-          const ListTileMain(
             icon: Icon(Icons.list_alt),
             text: 'Ver as minhas anotações',
             path: '/list_anotacao',
@@ -79,33 +55,9 @@ class LateralPage extends StatelessWidget {
           const ListTileMain(
               icon: Icon(Icons.add),
               text: 'Adicionar nova anotação',
-              path: '/tipo_anotacao'),
+              path: '/add_anotacao'),
         ],
       ),
-    );
-  }
-}
-
-class MainButtons extends StatelessWidget {
-  final String? buttonText;
-  final String? path;
-
-  const MainButtons({Key? key, this.buttonText, this.path}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      child: Text(
-        '$buttonText',
-      ),
-      style: TextButton.styleFrom(
-        primary: Colors.white,
-        backgroundColor: Colors.teal,
-        elevation: 10,
-        textStyle: const TextStyle(fontSize: 20),
-        padding: const EdgeInsets.all(20.0),
-      ),
-      onPressed: () => Navigator.pushNamed(context, '/$path'),
     );
   }
 }
