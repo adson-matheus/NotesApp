@@ -27,7 +27,11 @@ class _AddAnotacaoState extends State<AddAnotacao> {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
-        title: const Text('Adicionar Anotação'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.popAndPushNamed(context, '/'),
+        ),
+        title: const Text('NotesApp - Nova Anotação'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
@@ -39,7 +43,11 @@ class _AddAnotacaoState extends State<AddAnotacao> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Adicionado com sucesso!')),
+                  const SnackBar(
+                    content: Text('Adicionado com sucesso!'),
+                    duration: Duration(seconds: 2),
+                    backgroundColor: Colors.teal,
+                  ),
                 );
                 var anotacao = Note(
                     titulo: titulo.text,
