@@ -26,7 +26,29 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnotacaoList();
+    return WillPopScope(
+        child: AnotacaoList(),
+        onWillPop: () async {
+          final result = await showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Sair?'),
+                    content: const Text('Deseja sair?'),
+                    actions: [
+                      TextButton(
+                          child: const Text('Não'),
+                          onPressed: () => Navigator.pop(context, false)),
+                      TextButton(
+                          child: const Text('Sim'),
+                          onPressed: () {
+                            Navigator.pop(context, true);
+                          }),
+                    ],
+                  ));
+          return result;
+        });
+
+    //AnotacaoList();
   }
 }
 
@@ -74,7 +96,7 @@ class ListTileMain extends StatelessWidget {
     return ListTile(
       leading: icon,
       title: Text('$text'),
-      onTap: () => Navigator.of(context).popAndPushNamed('$path'),
+      onTap: () => Navigator.of(context).pushNamed('$path'),
     );
   }
 }
