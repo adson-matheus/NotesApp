@@ -27,10 +27,6 @@ class _AddAnotacaoState extends State<AddAnotacao> {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.popAndPushNamed(context, '/'),
-        ),
         title: const Text('NotesApp - Nova Anotação'),
         actions: <Widget>[
           IconButton(
@@ -56,8 +52,8 @@ class _AddAnotacaoState extends State<AddAnotacao> {
                         AppController.instance.dateToString(DateTime.now()),
                     done: 0);
                 CrudNotes.instance.createNote(anotacao);
-                //NoteReceiver.instance.addListas(titulo.text, texto.text);
-                Navigator.of(context).popAndPushNamed('/list_anotacao');
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/', (Route<dynamic> route) => false);
               }
             },
           ),

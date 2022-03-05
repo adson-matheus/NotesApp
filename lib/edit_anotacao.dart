@@ -68,7 +68,8 @@ class EditNote extends StatelessWidget {
                         dataCriacao: note['dataCriacao'],
                         done: note['done']);
                     CrudNotes.instance.updateNote(n);
-                    Navigator.of(context).popAndPushNamed('/list_anotacao');
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/', (Route<dynamic> route) => false);
                   }
                 },
               ),

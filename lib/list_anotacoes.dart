@@ -27,9 +27,7 @@ class _AnotacaoListState extends State<AnotacaoList> {
   ];
 
   void itemTapped(int index) {
-    if (index == 0) {
-      Navigator.popAndPushNamed(context, '/list_anotacao');
-    } else {
+    if (index == 1) {
       Navigator.pushNamed(context, '/add_anotacao');
     }
   }
