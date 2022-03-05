@@ -12,10 +12,6 @@ class NoteDetail extends StatelessWidget {
     return Scaffold(
       //drawer: const LateralPage(),
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.popAndPushNamed(context, '/'),
-        ),
         title: Text('NotesApp - ' + '${note['titulo']}'),
         actions: [
           IconButton(
@@ -54,8 +50,8 @@ class NoteDetail extends StatelessWidget {
                                         )),
                                   );
                                   CrudNotes.instance.deleteNote(note['id']);
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                      '/', (Route<dynamic> route) => false);
                                 }),
                           ],
                         ));
